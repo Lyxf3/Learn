@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    color: black;
+}
+
+.logo {
+    width: 200px;
+}
+
+h1 {
+    color: red;
+}
+
+h2 {
+    color: #ffffff;
+    background-color: #008000;
+}
+
+.indent {
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+p span {
+    color: red;
+}
+
+.pForForm {
+    margin-left: 100px;
+}
+
+.blueBox{
+    color: #ffffff;
+    background-color: #0000ff;
+    width: 100px;
+    margin-bottom: 100px;
+}
+
+li{
+    border: 1px solid black;
+}
+
