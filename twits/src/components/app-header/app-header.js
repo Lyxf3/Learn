@@ -2,12 +2,30 @@ import React from 'react'
 
 import "../app-header/app-header.css"
 
-const AppHeader = () => {
+import styled from "styled-components";
+
+const Header = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  h1 {
+      font-size: 26px;
+      :hover {
+        color: #FFD700
+      }
+  }
+  h2 {
+    font-size: 1.2rem;
+    color: grey;
+  }
+`
+
+const AppHeader = ({liked, allPosts}) => {
     return (
-        <div className="app-header d-flex">
+        <Header colored>
             <h1>Dmitry Zhigiliy</h1>
-            <h2>5 записей, из них понравилось 0</h2>
-        </div>
+            <h2>{allPosts} записей, из них понравилось {liked}</h2>
+        </Header>
     )
 }
 

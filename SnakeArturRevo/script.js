@@ -1,25 +1,22 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 
-
-
 const snakeHead = new Image();
- snakeHead.src = "Artur.jpg";
 const vodka = new Image();
+const img = new Image();
+
+snakeHead.src = "Artur.jpg";
 vodka.src = "vodka.jpg";
-const img = document.getElementById("lamp");
+img.src = "revo.jpg"
+
 class SnakePart{
     constructor(x, y){
         this.x = x;
         this.y = y;
     }
 }
-const up = document.querySelector(".up"),
-    bottom = document.querySelector(".bottom"),
-    left = document.querySelector(".left"),
-    right = document.querySelector(".right");
 
-let speed = 7;
+let speed = 5;
 
 let tileCount = 20;
 let tileSize = canvas.width / tileCount - 2;
@@ -54,10 +51,10 @@ function drawGame(){
     drawScore();
 
     if(score > 5){
-        speed = 9;
+        speed = 6;
     }
     if(score > 10){
-        speed = 11;
+        speed = 8;
     }
 
     setTimeout(drawGame, 1000/ speed);
@@ -66,22 +63,13 @@ function drawGame(){
 function isGameOver(){
     let gameOver = false;
 
-    if(yVelocity ===0 && xVelocity ===0){
+    if(yVelocity === 0 && xVelocity === 0){
         return false;
     }
 
     //walls
-    if(headX < 0 ){
+    if(headX < 0  || headX === tileCount || headY < 0 || headY === tileCount){
         gameOver = true;
-    }
-    else if(headX === tileCount){
-        gameOver = true
-    }
-    else if( headY < 0){
-        gameOver = true;
-    }
-    else if(headY === tileCount){
-        gameOver = true
     }
 
     for(let i =0; i < snakeParts.length; i++){
@@ -101,18 +89,17 @@ function isGameOver(){
             ctx.fillStyle = "white";
             ctx.font = "50px Verdana";
 
-            var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
             gradient.addColorStop("0", " magenta");
             gradient.addColorStop("0.5", "blue");
             gradient.addColorStop("1.0", "red");
-            // Fill with gradient
             ctx.fillStyle = gradient;
 
-            ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
+            ctx.fillText("Пошел бухать!", canvas.width / 35, canvas.height / 2);
         }
 
 
-        ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
+        ctx.fillText("Пошел бухать!", canvas.width / 35, canvas.height / 2);
     }
 
     return gameOver;
@@ -121,7 +108,7 @@ function isGameOver(){
 function drawScore(){
     ctx.fillStyle = "white";
     ctx.font = "10px Verdana"
-    ctx.fillText("Score " + score, canvas.width-50, 10);
+    ctx.fillText(`Score ${score}`, canvas.width-50, 10);
 }
 
 function clearScreen(){
@@ -130,13 +117,16 @@ function clearScreen(){
 }
 
 function drawSnake(){
-    let img1 = document.getElementById("lamp1")
-    let pat = ctx.createPattern(img1, "repeat");
+
+    let pat =  ctx.createPattern(img, "repeat")
     ctx.fillStyle = pat;
     for(let i =0; i < snakeParts.length; i++){
         let part = snakeParts[i];
-        ctx.drawImage(img1, part.x * tileCount, part.y * tileCount, tileSize, tileSize);
-
+            if(i < 4) {
+                ctx.drawImage(img, part.x * tileCount, part.y * tileCount, tileSize, tileSize);
+            }else {
+                ctx.drawImage(vodka, part.x * tileCount, part.y * tileCount, tileSize, tileSize);
+            }
     }
 
     snakeParts.push(new SnakePart(headX, headY)); //put an item at the end of the list next to the head
@@ -174,8 +164,9 @@ function checkAppleCollision(){
 document.body.addEventListener('keydown', keyDown);
 
 function keyDown(event){
+
     //up
-    if(event.keyCode == 38){
+   if(event.keyCode == 38){
         if(yVelocity == 1)
             return;
         yVelocity = -1;
@@ -183,8 +174,6 @@ function keyDown(event){
     }
 
     //down
-
-
     if(event.keyCode == 40){
         if(yVelocity == -1)
             return;
@@ -212,8 +201,3 @@ function keyDown(event){
 
 
 drawGame();
-// const c = document.getElementById("myCanvas");
-// const ctx = c.getContext("2d");
-// ctx.fillStyle = "#FF0000";
-// ctx.fillRect(20, 20, 150, 100);
-//
